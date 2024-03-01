@@ -2,13 +2,13 @@ import logging
 import os
 import shutil
 
-from src.assets import update_assets, update_image_dimensions, add_bullet_before_indented_image
-from src.copy_files import copy_files
-from src.front_matter import front_matter_conversion, get_front_matter, create_front_matter
-from src.links import update_links_and_tags, remove_block_links_embeds
-from src.parser import get_parser
-from src.text_utils import convert_spaces_to_tabs, convert_empty_line, escape_lt_gt, unindent_once
-from src.utils import is_collapsed_line, add_space_after_hyphen_that_ends_line, prepend_code_block, convert_todos
+from assets import update_assets, update_image_dimensions, add_bullet_before_indented_image
+from copy_files import copy_files
+from front_matter import front_matter_conversion, get_front_matter, create_front_matter
+from links import update_links_and_tags, remove_block_links_embeds
+from parser import get_parser
+from text_utils import convert_spaces_to_tabs, convert_empty_line, escape_lt_gt, unindent_once
+from utils import is_collapsed_line, add_space_after_hyphen_that_ends_line, prepend_code_block, convert_todos
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s:%(message)s")
 
@@ -38,6 +38,10 @@ assert os.path.isdir(old_journals)
 
 new_journals = os.path.join(new_base, "journals")
 os.mkdir(new_journals)
+
+# Attachments
+attachments_path = os.path.join(new_base, "attachments")
+os.mkdir(attachments_path)
 
 logging.info("Now beginning to copy the journal pages")
 new_paths, new_to_old_paths, pages_that_were_empty, old_pagenames_to_new_paths = copy_files(old_journals, new_journals,
@@ -102,7 +106,7 @@ for file_path in new_paths:
             line = update_links_and_tags(line, old_pagenames_to_new_paths, file_path)
 
             # Update assets
-            line = update_assets(line, new_to_old_paths[file_path], file_path)
+            line = update_assets(line)
 
             # Update image dimensions
             line = update_image_dimensions(line)
