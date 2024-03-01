@@ -9,5 +9,5 @@ example/obsidian_output/**
 .vscode/launch.json
 
 # ide
-#.vscode
+.vscode
 .idea
