@@ -32,28 +32,28 @@ if args.overwrite_output and os.path.exists(new_base):
 
 os.makedirs(new_base, exist_ok=False)
 
-# Copy journals pages to their own subfolder
+# Old paths
 old_journals = os.path.join(old_base, "journals")
+old_pages = os.path.join(old_base, "pages")
 assert os.path.isdir(old_journals)
+assert os.path.isdir(old_pages)
 
+# New paths
 new_journals = os.path.join(new_base, "journals")
-os.mkdir(new_journals)
-
-# Attachments
+new_pages = os.path.join(new_base, "pages")
 attachments_path = os.path.join(new_base, "attachments")
+os.mkdir(new_journals)
+os.mkdir(new_pages)
 os.mkdir(attachments_path)
 
 logging.info("Now beginning to copy the journal pages")
 new_paths, new_to_old_paths, pages_that_were_empty, old_pagenames_to_new_paths = copy_files(old_journals, new_journals,
                                                                                             args, journals=True)
 
-# Copy other markdown files to the new base folder, creating subfolders for namespaces
-old_pages = os.path.join(old_base, "pages")
-assert os.path.isdir(old_pages)
-
 logging.info("Now beginning to copy the pages")
 new_paths_p, new_to_old_paths_p, pages_that_were_empty_p, old_pagenames_to_new_paths_p = copy_files(old_pages,
                                                                                                     new_base, args)
+
 new_paths.update(new_paths_p)
 new_to_old_paths.update(new_to_old_paths_p)
 pages_that_were_empty.update(pages_that_were_empty_p)

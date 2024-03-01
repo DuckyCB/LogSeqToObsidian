@@ -53,13 +53,16 @@ def copy_files(old_path: str, new_path: str, args, journals: bool = False):
             if os.path.isfile(file_path):
                 if is_markdown_file(file_path):
                     if not is_empty(file_path):
+                        new_file_dir = new_path
+                        if not journals:
+                            new_file_dir = os.path.join(new_path, 'pages')
                         hierarchy = get_namespace_hierarchy(file, args)
                         hierarchical_pagename = "/".join(hierarchy)  # ?
 
                         if folder == '.':
-                            new_file_path = os.path.join(new_path, *hierarchy)
+                            new_file_path = os.path.join(new_file_dir, *hierarchy)
                         else:
-                            new_file_path = os.path.join(new_path, *([folder] + hierarchy))
+                            new_file_path = os.path.join(new_file_dir, *([folder] + hierarchy))
 
                         new_file_path = fix_escapes(new_file_path)
                         new_dirname = os.path.split(new_file_path)[0]
