@@ -84,3 +84,7 @@ def unencode_filenames_for_links(old_str: str) -> str:
 def spaces_to_underscore(string: str) -> str:
     string = string.replace("%20", "_")
     return string.replace(" ", "_")
+
+
+def underscore_to_dash(string: str) -> str:
+    return string.replace("_", "-")

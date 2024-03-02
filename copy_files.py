@@ -3,7 +3,7 @@ import os
 import shutil
 
 from file_type import is_markdown_file, is_empty, is_asset_file
-from text_utils import fix_escapes, unencode_filenames_for_links, spaces_to_underscore
+from text_utils import fix_escapes, unencode_filenames_for_links, spaces_to_underscore, underscore_to_dash
 
 
 def get_namespace_hierarchy(file: str, args) -> list[str]:
@@ -67,6 +67,8 @@ def copy_files(old_path: str, new_path: str, args, journals: bool = False):
                         new_file_path = fix_escapes(new_file_path)
                         new_dirname = os.path.split(new_file_path)[0]
                         os.makedirs(new_dirname, exist_ok=True)
+                        if journals:
+                            new_file_path = underscore_to_dash(new_file_path)
                         shutil.copyfile(file_path, new_file_path)
                         new_to_old_paths[new_file_path] = file_path
                         new_paths.add(new_file_path)

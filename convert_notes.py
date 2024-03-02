@@ -5,7 +5,7 @@ import shutil
 from assets import update_assets, update_image_dimensions, add_bullet_before_indented_image
 from copy_files import copy_files
 from front_matter import front_matter_conversion, get_front_matter, create_front_matter
-from links import update_links_and_tags, remove_block_links_embeds
+from links import update_links_and_tags, remove_block_links_embeds, update_video_links
 from parser import get_parser
 from text_utils import convert_spaces_to_tabs, convert_empty_line, escape_lt_gt, unindent_once
 from utils import is_collapsed_line, add_space_after_hyphen_that_ends_line, prepend_code_block, convert_todos
@@ -125,6 +125,8 @@ for file_path in new_paths:
 
             # Make sure images are indented correctly
             line = add_bullet_before_indented_image(line)
+
+            line = update_video_links(line)
 
             newlines.append(line)
 

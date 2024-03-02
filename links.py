@@ -98,3 +98,7 @@ def remove_block_links_embeds(line: str) -> str:
     line = re.sub(r"{{embed .*?}}", "", line)
     line = re.sub(r"\(\(.*?\)\)", "", line)
     return line
+
+
+def update_video_links(line: str) -> str:
+    return re.sub(r"\{\{video\s(.*?)\}\}", r"![](\1)", line)
