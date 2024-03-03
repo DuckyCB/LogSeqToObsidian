@@ -1,4 +1,5 @@
 import os
+import re
 
 
 def is_markdown_file(file_path: str) -> bool:
@@ -6,7 +7,7 @@ def is_markdown_file(file_path: str) -> bool:
 
 
 def is_asset_file(file_path: str) -> bool:
-    return file_path.lower().endswith((".png", ".jpg", ".jpeg", ".gif", ".pdf"))
+    return file_path.lower().endswith((".png", ".jpg", ".jpeg", ".gif", ".pdf", ".heic"))
 
 
 def is_empty(file_path: str) -> bool:
@@ -26,14 +27,13 @@ def is_empty(file_path: str) -> bool:
     return True
 
 
-def get_markdown_file_properties(file_path: str) -> tuple[dict, int]:
-    """Given a path to a markdown file, returns a dictionary of its properties and the index of the first line after the properties
-
-    Properties can either be in page property format: "title:: test"
-    Or in front matter format:
-        ---
-        title: test
-        ---
+def is_daily_file(path):
+    """Check if the given path corresponds to a daily entry.
     """
+    if "daily" not in path.split(os.sep):
+        return False
 
-    raise NotImplementedError()
+    filename = os.path.basename(path)
+    pattern = r"\d{4}-\d{2}-\d{2}\.md"
+
+    return bool(re.match(pattern, filename))

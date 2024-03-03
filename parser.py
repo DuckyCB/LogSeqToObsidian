@@ -45,4 +45,10 @@ def get_parser():
         action="store_true",
         help="Convert #[[long tags]] to [[long tags]]",
     )
+    parser.add_argument(
+        "--preserve_metadata",
+        default=False,
+        action="store_true",
+        help="Preserve the metadata from the original files",
+    )
     return parser

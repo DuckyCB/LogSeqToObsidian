@@ -2,10 +2,10 @@ import os
 import re
 import shutil
 
-from text_utils import spaces_to_underscore
+from string_utils import spaces_to_underscore
 
 
-def update_assets(line: str):
+def update_asset_link(line: str):
     """Updates embedded asset links
     Assets are copied to the 'attachments' subfolder under the same directory as new_path is in
     Images (.PNG, .JPG) are embedded. Everything else is linked to
